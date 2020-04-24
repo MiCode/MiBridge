@@ -3,7 +3,7 @@
 [简体中文](./README_zh.md)
 
 ## Our Purpose
-All for users, let users get the best experience!
+All for users, make users getting the best experience!
 ## Introduction
 Xiaomi Application Accelerator (MiSpeed) provides developers with the interface to apply for system resources,<br>
 which can improve the performance of developers in key application scenarios and enhance the user experience.
@@ -19,21 +19,27 @@ which can improve the performance of developers in key application scenarios and
 Please provide the following information and send it to xiaomi-mispeed-support@xiaomi.com to apply for debugging permission.<br>
 Subject：xx Company，Applying for MiSpeed debugging permission。<br>
 
-PackageName | CompanyName | Requestor | Device model | MIUI version | IMEI num
+PackageName | CompanyName | Requestor | Device model | MIUI version | VAID num
 ---- | ----- | ------ | ------- | -------- | ---------
-com.mi.testmibridge | Xx | Tony | Redmi K20 Pro | MIUI 11 20.3.5 Beta | 867252030127459
+com.mi.testmibridge | Xx | Tony | Redmi K20 Pro | MIUI 11 20.3.5 Beta | ec8ec830b8e8031c
 
 We will reply you with an `authentication code` for debugging.
+
+Note: What is VAID, how to get it?
+1. VAID means Vender Anonymous  Device ID
+2. Refer http://msa-alliance.cn/col.jsp?id=120
+3. You can refer to the example in TestMiBridge. (Testing getVAID)
 
 [__Support Devices__](./support_devices.md)
 
 #### 2. APIs
 __Permission apis__<br>
 
-1. ```boolean checkPermission(String pkg, int uid, String auth_key)```<br>
+1. ```boolean checkDebugPermission(Context context, String pkg, int uid, String auth_key)```<br>
       __Description：Check whether the application has debugging permission.__<br>
 
       parameters：<br>
+      *context* : application context<br>
       *pkg* : Package Name<br>
       *uid* : android.os.Process.myUid()<br>
       *auth_key* : `authentication code`<br>
@@ -56,10 +62,11 @@ __Permission apis__<br>
 
 __APIs for request system resouce__<br>
 
-3. ```int requestCpuHighFreq(int level, int timeoutms)```<br>
+3. ```int requestCpuHighFreq(int uid, int level, int timeoutms)```<br>
       __Description： Reqeust CPU frequency__<br>
 
       parameters：<br>
+      *uid* : android.os.Process.myUid()<br>
       *level* : Expected cpu frequency level，system will set different CPU frequency according to different models<br>
 
       Level | Explanation (take Xiaomi 8 as an example)
@@ -77,20 +84,22 @@ __APIs for request system resouce__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-4. ```int cancelCpuHighFreq()```<br>
+4. ```int cancelCpuHighFreq(int uid)```<br>
       __Description：Cancle cpu frequency request__<br>
 
-      parameters：None<br>
+      parameters：<br>
+      *uid* : android.os.Process.myUid()<br>
 
       return value：<br>
       0:   Success<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-5. ```int requestThreadPriority(int req_tid, int timeoutms)```<br>
+5. ```int requestThreadPriority(int uid, int req_tid, int timeoutms)```<br>
       __Description：Request thread for higher priority, running in big core.__<br>
 
       parameters：<br>
+      *uid* : android.os.Process.myUid()<br>
       *req_tid* : thread id<br>
       *timeoutms* : duration<br>
 
@@ -99,10 +108,11 @@ __APIs for request system resouce__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-6. ```int cancelThreadPriority (int req_tid)```<br>
+6. ```int cancelThreadPriority (int uid, int req_tid)```<br>
       __Description：Cancel request__<br>
 
       parameters：<br>
+      *uid* : android.os.Process.myUid()<br>
       *req_tid* : thread id<br>
 
       return value:<br>

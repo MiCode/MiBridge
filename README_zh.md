@@ -18,21 +18,27 @@
 请提供以下信息，发送到邮箱xiaomi-mispeed-support@xiaomi.com, 申请接入调试权限。<br>
 邮件主题：xx公司，申请小米应用加速器接入调试权限。<br>
 
-应用包名 | 公司名称 | 申请人 | 手机型号 | MIUI版本 | IMEI号
+应用包名 | 公司名称 | 申请人 | 手机型号 | MIUI版本 | VAID号
 ---- | ----- | ------ | ------- | -------- | ---------
-com.mi.testmibridge | Xx | 张三 | Redmi K20 Pro | MIUI 11 20.3.5 开发版 | 867252030127459
+com.mi.testmibridge | Xx | 张三 | Redmi K20 Pro | MIUI 11 20.3.5 开发版 | ec8ec830b8e8031c
     
 我们将会给您回复一个`鉴权码`，供前期接入SDK调试使用。
+
+备注：什么是VAID，如何获得VAID号？
+1. VAID是MAS移动安全联盟统一的开发者匿名设备标识符
+2. 请参考http://msa-alliance.cn/col.jsp?id=120
+3. 也可参考示例代码(TestMiBridge)中的Testing getVAID
 
 [__支持设备版本列表__](./support_devices.md)
 
 #### 2. 接口定义
 __权限检查接口__<br>
 
-1. ```boolean checkPermission(String pkg, int uid, String auth_key)```<br>
+1. ```boolean checkDebugPermission(Context context, String pkg, int uid, String auth_key)```<br>
       __介绍：通过申请获得的鉴权码，检查应用是否有调试权限。__<br>
 
       参数：<br>
+      *context* : 应用上下文<br>
       *pkg* : 应用包名<br>
       *uid* : android.os.Process.myUid()<br>
       *auth_key* : 申请获得的鉴权码<br>
@@ -55,10 +61,11 @@ __权限检查接口__<br>
 
 __系统资源申请接口__<br>
 
-3. ```int requestCpuHighFreq(int level, int timeoutms)```<br>
+3. ```int requestCpuHighFreq(int uid, int level, int timeoutms)```<br>
       __介绍：向系统申请cpu频率资源的接口__<br>
 
       参数：<br>
+      *uid* : android.os.Process.myUid()<br>
       *level* : 需要的cpu频率level，系统将会根据不同机型设置不同的cpu频率<br>
 
       Level级别 | 解释（以小米8为例）
@@ -76,20 +83,22 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-4. ```int cancelCpuHighFreq()```<br>
+4. ```int cancelCpuHighFreq(int uid)```<br>
       __介绍：取消申请的cpu频率资源__<br>
 
-      参数：无<br>
+      参数：<br>
+      *uid* : android.os.Process.myUid()<br>
 
       返回结果：<br>
       0:   Success<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-5. ```int requestThreadPriority(int req_tid, int timeoutms)```<br>
+5. ```int requestThreadPriority(int uid, int req_tid, int timeoutms)```<br>
       __介绍：申请线程获得高优先级，将会优先运行在系统大核上。__<br>
 
       参数：<br>
+      *uid* : android.os.Process.myUid()<br>
       *req_tid* : 申请的线程id<br>
       *timeoutms* : 申请的时长<br>
 
@@ -98,10 +107,11 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-6. ```int cancelThreadPriority (int req_tid)```<br>
+6. ```int cancelThreadPriority (int uid, int req_tid)```<br>
       __介绍：取消申请的线程优先级__<br>
 
       参数：<br>
+      *uid* : android.os.Process.myUid()<br>
       *req_tid* : 取消的线程id<br>
 
       返回结果：<br>
