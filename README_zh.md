@@ -24,6 +24,8 @@ com.mi.testmibridge | Xx | 张三 | Redmi K20 Pro | MIUI 11 20.3.5 开发版 | 8
     
 我们将会给您回复一个`鉴权码`，供前期接入SDK调试使用。
 
+[__支持设备版本列表__](./support_devices.md)
+
 #### 2. 接口定义
 __权限检查接口__<br>
 
