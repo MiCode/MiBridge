@@ -25,6 +25,8 @@ com.mi.testmibridge | Xx | Tony | Redmi K20 Pro | MIUI 11 20.3.5 Beta | 86725203
 
 We will reply you with an `authentication code` for debugging.
 
+[__Support Devices__](./support_devices.md)
+
 #### 2. APIs
 __Permission apis__<br>
 
