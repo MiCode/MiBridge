@@ -15,6 +15,12 @@ which can improve the performance of developers in key application scenarios and
 * __*Scenario Customization*__<br>
   Provide different levels of system resources in different scenarios.
 ## Access Note
+*MiBridge.jar*<br>
+&emsp; You can import this jar.<br>
+*TestMiBridge*<br>
+&emsp; Inclue： <br>
+&emsp;&emsp;*mibridge*: Source code of MiBridge.jar<br>
+&emsp;&emsp;*app*: Testing application code.<br>
 #### 1. Applying for debugging permission<br>
 Please provide the following information and send it to xiaomi-mispeed-support@xiaomi.com to apply for debugging permission.<br>
 Subject：xx Company，Applying for MiSpeed debugging permission。<br>
@@ -49,7 +55,7 @@ __Permission apis__<br>
       *false* : Permission not granted<br>
 
 2. ```boolean checkPermission(String pkg, int uid)```<br>
-      __Description：Check whether the application has formal permission，please refer [3.Applying for fromal permission]()__<br>
+      __Description：Check whether the application has formal permission，please refer [3.Applying for fromal permission](#formal)__<br>
       __After obtaining the formal permission, use this interface to check the permission without using the `authentication code`.__<br>
 
       parameters：<br>
@@ -120,7 +126,7 @@ __APIs for request system resouce__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-#### 3. Applying for fromal permission
+<h4 id="formal">3. Applying for fromal permission</h4>
 Please provide the following information and send it to xiaomi-mispeed-support@xiaomi.com to apply for formal permission.<br>
 Subject：xx Company，Applying for MiSpeed formal permission。<br>
 __`Note：To apply for formal permission,relevant business agreements need to be signed.`__<br>
@@ -156,7 +162,7 @@ Note：We will also do power consumption test according to the scenarios provide
 
 #### 4. More cooperation
 More APIs will be supported in the future<br>
-requestGpuHighFreq，requestIOHighFreq，requestMemory，requestNetwork等
+requestGpuHighFreq，requestIOHighFreq，requestMemory，requestNetwork and so on.
 
 Other supports that can be provided in the future<br>
 Provide more support for your application (e.g. memory leak detection), improve the performance of the application, and improve the user satisfaction.
