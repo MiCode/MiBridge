@@ -18,7 +18,7 @@ which can improve the performance of developers in key application scenarios and
 *MiBridge.jar*<br>
 &emsp; You can import this jar.<br>
 *TestMiBridge*<br>
-&emsp; Inclue： <br>
+&emsp; Inclued： <br>
 &emsp;&emsp;*mibridge*: Source code of MiBridge.jar<br>
 &emsp;&emsp;*app*: Testing application code.<br>
 #### 1. Applying for debugging permission<br>
