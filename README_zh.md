@@ -19,7 +19,7 @@
 *TestMiBridge*<br>
 &emsp;此目录包含： <br>
 &emsp;&emsp;*mibridge*: MiBridge jar包的实现代码。<br>
-&emsp;&emsp;*app*: 测试MiBridge的aoo代码。<br>
+&emsp;&emsp;*app*: 测试MiBridge的app代码。<br>
 #### 1. 申请调试权限<br>
 请提供以下信息，发送到邮箱xiaomi-mispeed-support@xiaomi.com, 申请接入调试权限。<br>
 邮件主题：xx公司，申请小米应用加速器接入调试权限。<br>
