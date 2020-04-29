@@ -13,7 +13,13 @@
   通过Binder直接与系统层进行通信，申请系统资源，快速高效
 * __*场景化定制*__<br>
   为开发者在不同的场景下提供不同级别的系统资源
-## 接入说明
+## 接入说明<br>
+*MiBridge.jar*<br>
+&emsp;您可以引入此jar包调用小米应用加速器相关接口。<br>
+*TestMiBridge*<br>
+&emsp;此目录包含： <br>
+&emsp;&emsp;*mibridge*: MiBridge jar包的实现代码。<br>
+&emsp;&emsp;*app*: 测试MiBridge的aoo代码。<br>
 #### 1. 申请调试权限<br>
 请提供以下信息，发送到邮箱xiaomi-mispeed-support@xiaomi.com, 申请接入调试权限。<br>
 邮件主题：xx公司，申请小米应用加速器接入调试权限。<br>
@@ -48,7 +54,7 @@ __权限检查接口__<br>
       *false* : 权限检查失败，无接口使用权限<br>
 
 2. ```boolean checkPermission(String pkg, int uid)```<br>
-      __介绍：检查应用是否有正式权限，正式权限的申请参考[3.申请正式权限]()，__<br>
+      __介绍：检查应用是否有正式权限，正式权限的申请参考[3.申请正式权限](#formal)，__<br>
       __获得正式权限后，使用此接口检查权限，无需使用上一个接口的鉴权码。__<br>
 
       参数：<br>
@@ -119,7 +125,7 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-#### 3. 申请正式权限
+<h4 id="formal">3. 申请正式权限</h4>
 请提供以下信息，发送到邮箱xiaomi-mispeed-support@xiaomi.com, 申请正式权限。<br>
 邮件主题：xx公司，申请小米应用加速器正式权限。<br>
 __`注意：申请正式权限，需要签订相关商务协议。`__<br>
