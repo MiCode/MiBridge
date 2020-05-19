@@ -126,7 +126,7 @@ __系统资源申请接口__<br>
       -2:  Permission not granted!<br>
 
 <h4 id="formal">3. 申请正式权限</h4>
-请提供以下信息，发送到邮箱xiaomi-mispeed-support@xiaomi.com, 申请正式权限。<br>
+请提供以下信息，发送到邮箱mispeed-business@xiaomi.com, 申请正式权限。<br>
 邮件主题：xx公司，申请小米应用加速器正式权限。<br>
 __`注意：申请正式权限，需要签订相关商务协议。`__<br>
 __1. 资源接口使用场景__<br>
