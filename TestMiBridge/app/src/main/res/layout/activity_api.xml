@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ApiActivity">
+
+
+    <TextView
+        android:id="@+id/api_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Api"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/bridge_recycle_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="350dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/api_title" />
+
+    <View
+        android:background="#AAAAAA"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bridge_recycle_view"/>
+
+
+    <TextView
+        android:id="@+id/bridge_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:text="Result"
+        app:layout_constraintStart_toStartOf="@+id/thread_priority"
+        app:layout_constraintTop_toBottomOf="@+id/bridge_input_gpu_timeout" />
+
+    <TextView
+        android:id="@+id/para_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bridge_recycle_view"
+        android:text="Parameter"/>
+
+    <TextView
+        android:id="@+id/bridge_result2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:text="authentication key"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/para_title" />
+
+    <TextView
+        android:id="@+id/bridge_output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This is output"
+        app:layout_constraintStart_toStartOf="@+id/cpu_level"
+        app:layout_constraintTop_toTopOf="@+id/bridge_result" />
+
+    <TextView
+        android:id="@+id/bridge_input_cpu_timeout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Timeout"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/bridge_input_cpu_level" />
+
+    <TextView
+        android:id="@+id/bridge_input_gpu_timeout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Timeout"
+        app:layout_constraintStart_toStartOf="@+id/bridge_input_cpu_timeout"
+        app:layout_constraintTop_toTopOf="@+id/bridge_input_gpu_timeout" />
+
+    <TextView
+        android:id="@+id/bridge_input_cpu_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:text="CPU level"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bridge_result2" />
+
+    <TextView
+        android:id="@+id/bridge_input_gpu_timeout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="GPU level"
+        app:layout_constraintStart_toStartOf="@+id/bridge_input_cpu_level"
+        app:layout_constraintTop_toBottomOf="@+id/bridge_input_cpu_level" />
+
+    <TextView
+        android:id="@+id/bridge_input_gpu_timeout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="GPU level"
+        app:layout_constraintStart_toStartOf="@+id/bridge_input_cpu_level"
+        app:layout_constraintTop_toBottomOf="@+id/bridge_input_cpu_level" />
+
+    <TextView
+        android:id="@+id/thread_priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="ThreadPriority"
+        app:layout_constraintStart_toStartOf="@+id/bridge_input_gpu_timeout"
+        app:layout_constraintTop_toBottomOf="@+id/bridge_input_gpu_timeout" />
+
+    <EditText
+        android:id="@+id/cpu_level"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:ems="5"
+        android:hint="level"
+        android:inputType="number"
+        android:text="1"
+        app:layout_constraintStart_toEndOf="@+id/bridge_input_cpu_level"
+        app:layout_constraintTop_toBottomOf="@+id/edit_auth_key" />
+
+    <EditText
+        android:id="@+id/edit_auth_key"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:ems="5"
+        android:hint="auth key here"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toEndOf="@+id/bridge_result2"
+        app:layout_constraintTop_toBottomOf="@+id/para_title" />
+
+    <EditText
+        android:id="@+id/gpu_level"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:ems="5"
+        android:hint="level"
+        android:inputType="number"
+        android:text="1"
+        app:layout_constraintEnd_toEndOf="@+id/cpu_level"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/cpu_level"
+        app:layout_constraintTop_toBottomOf="@+id/cpu_level" />
+
+    <EditText
+        android:id="@+id/ddr_level"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:ems="5"
+        android:hint="level"
+        android:inputType="number"
+        android:text="1"
+        app:layout_constraintEnd_toEndOf="@+id/gpu_level"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/cpu_level"
+        app:layout_constraintTop_toBottomOf="@+id/gpu_level" />
+
+    <EditText
+        android:id="@+id/thread_priority_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="-20dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:ems="5"
+        android:hint="ThreadPriority"
+        android:inputType="number"
+        android:text="10000"
+        app:layout_constraintStart_toEndOf="@+id/thread_priority"
+        app:layout_constraintTop_toTopOf="@+id/thread_priority" />
+
+    <EditText
+        android:id="@+id/io_prefetch_path"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:hint="io prefetch path"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/thread_priority_edit"
+        app:layout_constraintTop_toBottomOf="@+id/thread_priority_edit" />
+
+    <EditText
+        android:id="@+id/cpu_timeout"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:ems="5"
+        android:hint="timeout"
+        android:inputType="number"
+        android:text="1000"
+        app:layout_constraintStart_toEndOf="@+id/bridge_input_cpu_timeout"
+        app:layout_constraintTop_toTopOf="@+id/cpu_level" />
+
+    <EditText
+        android:id="@+id/gpu_timeout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext_selector"
+        android:ems="5"
+        android:hint="timeout"
+        android:inputType="number"
+        android:text="1000"
+        app:layout_constraintEnd_toEndOf="@+id/cpu_timeout"
+        app:layout_constraintStart_toStartOf="@+id/cpu_timeout"
+        app:layout_constraintTop_toTopOf="@+id/gpu_level" />
+
+    <EditText
+        android:id="@+id/ddr_timeout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext_selector"
+        android:ems="5"
+        android:hint="timeout"
+        android:inputType="number"
+        android:text="1000"
+        app:layout_constraintEnd_toEndOf="@+id/gpu_timeout"
+        app:layout_constraintStart_toStartOf="@+id/gpu_timeout"
+        app:layout_constraintTop_toTopOf="@+id/ddr_level" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/bridge_input_ddr_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="DDR level"
+        app:layout_constraintEnd_toEndOf="@+id/bridge_input_gpu_timeout"
+        app:layout_constraintStart_toStartOf="@+id/bridge_input_gpu_timeout"
+        app:layout_constraintTop_toBottomOf="@+id/bridge_input_gpu_timeout" />
+
+    <TextView
+        android:id="@+id/bridge_input_ddr_timeout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Timeout"
+        app:layout_constraintBottom_toBottomOf="@+id/bridge_input_ddr_level"
+        app:layout_constraintEnd_toEndOf="@+id/bridge_input_gpu_timeout3"
+        app:layout_constraintStart_toStartOf="@+id/bridge_input_gpu_timeout3"
+        app:layout_constraintTop_toTopOf="@+id/bridge_input_ddr_level" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="IOPrefetch path"
+        app:layout_constraintEnd_toEndOf="@+id/thread_priority"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/thread_priority"
+        app:layout_constraintTop_toBottomOf="@+id/thread_priority" />
+
+
+</android.support.constraint.ConstraintLayout>
