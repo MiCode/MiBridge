@@ -22,7 +22,7 @@ which can improve the performance of developers in key application scenarios and
 &emsp;&emsp;*mibridge*: Source code of MiBridge.jar<br>
 &emsp;&emsp;*app*: Testing application code.<br>
 #### 1. Applying for debugging permission<br>
-Please provide the following information and send it to mispeed-help@xiaomi.com to apply for debugging permission.<br>
+Please provide the following information and send it to xiaomi-mispeed-support@xiaomi.com to apply for debugging permission.<br>
 Subject：xx Company，Applying for MiSpeed debugging permission。<br>
 
 PackageName | CompanyName | Requestor | Device model | MIUI version | VAID num
@@ -127,7 +127,7 @@ __APIs for request system resouce__<br>
       -2:  Permission not granted!<br>
 
 <h4 id="formal">3. Applying for fromal permission</h4>
-Please provide the following information and send it to mispeed-business@xiaomi.com to apply for formal permission.<br>
+Please provide the following information and send it to xiaomi-mispeed-support@xiaomi.com to apply for formal permission.<br>
 Subject：xx Company，Applying for MiSpeed formal permission。<br>
 __`Note：To apply for formal permission,relevant business agreements need to be signed.`__<br>
 __1. APIs using scenarios__<br>

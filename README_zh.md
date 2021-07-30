@@ -21,41 +21,22 @@
 &emsp;&emsp;*mibridge*: MiBridge jar包的实现代码。<br>
 &emsp;&emsp;*app*: 测试MiBridge的app代码。<br>
 #### 1. 申请调试权限<br>
-请提供以下信息，发送到邮箱mispeed-help@xiaomi.com, 申请接入调试权限。<br>
-邮件主题：xx公司，申请小米应用加速器接入调试权限。<br>
+请提供以下信息，发送到邮箱xiaomi-mispeed-support@xiaomi.com, 申请接入调试权限。<br>
+#### 邮件主题：xx（APP名称）申请小米应用加速器接入调试权限<br>
 
-应用包名 | 公司名称 | 申请人 | 手机型号 | MIUI版本 | VAID号
----- | ----- | ------ | ------- | -------- | ---------
-com.mi.testmibridge | Xx | 张三 | Redmi K20 Pro | MIUI 11 20.3.5 开发版 | ec8ec830b8e8031c
-    
-我们将会给您回复一个`鉴权码`，供前期接入SDK调试使用。
+应用包名 | 申请人 |
+---- | ----- |
+com.mi.testmibridge | 张三 |
 
-备注：什么是VAID，如何获得VAID号？
-1. VAID是MAS移动安全联盟统一的开发者匿名设备标识符
-2. 请参考http://msa-alliance.cn/col.jsp?id=120
-3. 也可参考示例代码(TestMiBridge)中的Testing getVAID
+我们将会为您开通调试权限．
 
 [__支持设备版本列表__](./support_devices.md)
 
 #### 2. 接口定义
 __权限检查接口__<br>
 
-1. ```boolean checkDebugPermission(Context context, String pkg, int uid, String auth_key)```<br>
-      __介绍：通过申请获得的鉴权码，检查应用是否有调试权限。__<br>
-
-      参数：<br>
-      *context* : 应用上下文<br>
-      *pkg* : 应用包名<br>
-      *uid* : android.os.Process.myUid()<br>
-      *auth_key* : 申请获得的鉴权码<br>
-
-      返回结果：<br>
-      *true* : 权限检查通过<br>
-      *false* : 权限检查失败，无接口使用权限<br>
-
-2. ```boolean checkPermission(String pkg, int uid)```<br>
-      __介绍：检查应用是否有正式权限，正式权限的申请参考[3.申请正式权限](#formal)，__<br>
-      __获得正式权限后，使用此接口检查权限，无需使用上一个接口的鉴权码。__<br>
+1. ```boolean checkPermission(String pkg, int uid)```<br>
+      __介绍：检查应用是否有权限__<br>
 
       参数：<br>
       *pkg* : 应用包名<br>
@@ -67,30 +48,30 @@ __权限检查接口__<br>
 
 __系统资源申请接口__<br>
 
-3. ```int requestCpuHighFreq(int uid, int level, int timeoutms)```<br>
+2. ```int requestCpuHighFreq(int uid, int level, int timeoutms)```<br>
       __介绍：向系统申请cpu频率资源的接口__<br>
 
       参数：<br>
       *uid* : android.os.Process.myUid()<br>
       *level* : 需要的cpu频率level，系统将会根据不同机型设置不同的cpu频率<br>
+      *timeoutms* : 申请cpu资源的持续时间<br>
 
-      Level级别 | 解释（以小米8为例）
-      ---- | -----
-      1 | Level 1 将会设置系统当前最小频率为系统最高频率
-      2 | Level 2 将会设置系统当前最小频率为系统较高频率<br>例：小米8对应大核最低2.2GHz, 小核最低1.5GHz
-      3 | Level 3 将会设置系统当前最小频率为系统正常频率以上<br>例：小米8对应大核最低1.9GHz, 小核最低1.0GHz
+      Level级别 | 解释（以小米8为例）| timeoutms
+      ---- | -----|-----
+      1 | Level 1 将会设置系统当前最小频率为系统最高频率 |  最长10s
+      2 | Level 2 将会设置系统当前最小频率为系统较高频率<br>例：小米8对应大核最低2.2GHz, 小核最低1.5GHz |  最长5s
+      3 | Level 3 将会设置系统当前最小频率为系统正常频率以上<br>例：小米8对应大核最低1.9GHz, 小核最低1.0GHz |  最长1.5s
 
       __注意：请谨慎使用Level 1级别。Level 1级别使用场景数量限制为5，__<br>
       __Level 2级别使用场景数量限制为20，Level 3 不做限制。__<br>
-      *timeoutms* : 申请cpu资源的持续时间。<br>
 
       返回结果：<br>
       0:   Success<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-4. ```int cancelCpuHighFreq(int uid)```<br>
-      __介绍：取消申请的cpu频率资源__<br>
+3. ```int cancelCpuHighFreq(int uid)```<br>
+      __介绍：取消申请cpu频率资源的接口__<br>
 
       参数：<br>
       *uid* : android.os.Process.myUid()<br>
@@ -100,8 +81,8 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-5. ```int requestThreadPriority(int uid, int req_tid, int timeoutms)```<br>
-      __介绍：申请线程获得高优先级，将会优先运行在系统大核上。__<br>
+4. ```int requestThreadPriority(int uid, int req_tid, int timeoutms)```<br>
+      __介绍：申请线程获得高优先级，将会优先得到调度运行__<br>
 
       参数：<br>
       *uid* : android.os.Process.myUid()<br>
@@ -113,8 +94,8 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-6. ```int cancelThreadPriority (int uid, int req_tid)```<br>
-      __介绍：取消申请的线程优先级__<br>
+5. ```int cancelThreadPriority (int uid, int req_tid)```<br>
+      __介绍：取消申请线程优先级的接口__<br>
 
       参数：<br>
       *uid* : android.os.Process.myUid()<br>
@@ -125,11 +106,82 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
+6. ```int requestGpuHighFreq(int uid, int level, int timeoutms)```<br>
+      __介绍：向系统申请gpu频率资源的接口__<br>
+
+      参数：<br>
+      *uid* : android.os.Process.myUid()<br>
+      *level* : 需要的gpu频率level，系统将会根据不同机型设置不同的gpu频率<br>
+      *timeoutms* : 申请gpu资源的持续时间<br>
+
+      返回结果：<br>
+      0:   Success<br>
+      -1:  Fail<br>
+      -2:  Permission not granted!<br>
+
+7. ```int cancelGpuHighFreq(int uid)```<br>
+      __介绍：取消申请gpu频率资源的接口__<br>
+
+      参数：<br>
+      *uid* : android.os.Process.myUid()<br>
+
+      返回结果：<br>
+       0:   Success<br>
+      -1:  Fail<br>
+      -2:  Permission not granted!<br>
+
+8. ```int requestDdrHighFreq(int uid, int level, int timeoutms)```<br>
+      __介绍：向系统申请ddr频率资源的接口__<br>
+
+      参数：<br>
+      *uid* : android.os.Process.myUid()<br>
+      *level* : 需要的ddr频率level，系统将会根据不同机型设置不同的ddr频率<br>
+      *timeoutms* : 申请ddr资源的持续时间<br>
+
+      返回结果：<br>
+      0:   Success<br>
+      -1:  Fail<br>
+      -2:  Permission not granted!<br>
+
+9. ```int cancelDdrHighFreq(int uid)```<br>
+      __介绍：取消申请ddr频率资源的接口__<br>
+
+      参数：<br>
+      *uid* : android.os.Process.myUid()<br>
+
+      返回结果：<br>
+       0:   Success<br>
+      -1:  Fail<br>
+      -2:  Permission not granted!<br>
+
+10. ```int requestIOPrefetch(int uid, String filePath)```<br>
+      __介绍：申请IO预读取接口__<br>
+
+      参数：<br>
+      *uid* : android.os.Process.myUid()<br>
+      *filePath* : 预读取的文件路径<br>
+
+      返回结果：<br>
+      0:   Success<br>
+      -1:  Fail<br>
+      -2:  Permission not granted!<br>
+
+11. ```int requestBindCore(int uid, int req_tid)```<br>
+      __介绍：申请线程优先大核运行接口__<br>
+
+      参数：<br>
+      *uid* : android.os.Process.myUid()<br>
+      *req_tid* : 申请的线程id<br>
+
+      返回结果：<br>
+      0:   Success<br>
+      -1:  Fail<br>
+      -2:  Permission not granted!<br>
+
 <h4 id="formal">3. 申请正式权限</h4>
-请提供以下信息，发送到邮箱mispeed-business@xiaomi.com, 申请正式权限。<br>
-邮件主题：xx公司，申请小米应用加速器正式权限。<br>
-__`注意：申请正式权限，需要签订相关商务协议。`__<br>
-__1. 资源接口使用场景__<br>
+请提供以下信息，发送到邮箱xiaomi-mispeed-support@xiaomi.com, 申请正式权限。<br>
+邮件主题：xx（APP名称）申请小米应用加速器正式权限<br>
+__1. 资源接口使用场景<br>
 
 场景 | cpu level | thread priority | timeout (ms)
 ---- | ----- | ------ | -------
@@ -139,7 +191,7 @@ Xxx滑动 | 2 | 0 | 1000
 场景4 | 1 | 0 | 100
 场景5 | 0 | 1 |2000
 
-__2. 性能测试__<br>
+__2. 性能测试<br>
 
 场景 | 具体测试内容 | 优化前 | 优化后 | 提升
 ---- | ----- | ------ | ------- | --------
@@ -148,9 +200,8 @@ __2. 性能测试__<br>
 场景3 | 测试内容3 | .. | .. |..
 
 备注：我们也会根据您提供的场景进行性能测试。<br>
-如贵公司无相关测试条件，也可以由我们帮您进行测试。<br>
 
-__3. 功耗测试__<br>
+__3. 功耗测试<br>
 
 场景 | Base | 接入后 | Diff
 ---- | ----- | ------ | -------
@@ -158,12 +209,11 @@ __3. 功耗测试__<br>
 场景2 | .. | .. | ..
 
 备注：我们也会根据您提供的场景进行功耗测试。<br>
-如贵公司无相关测试条件，也可以由我们帮您进行测试。<br>
 
 
 #### 4. 更多合作
 后续将会开放更多接口<br>
-requestGpuHighFreq，requestIOHighFreq，requestMemory，requestNetwork等
+requestIOHighFreq，requestMemory，requestNetwork等
 
 后续可以提供的支持<br>
 为您的应用提供更多的支持（例如，卡顿打点，内存泄漏打点），提升应用的性能，提升用户的使用满意度。
