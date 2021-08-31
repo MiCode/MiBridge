@@ -235,7 +235,7 @@ public class ApiActivity extends AppCompatActivity {
         miBridgeModels.add(new MiBridgeModel("requestBindCore", new Runnable() {
             @Override
             public void run() {
-                int ret = MiBridge.requestBindCore(mBridgeUid, mBridgeTid);
+                int ret = MiBridge.requestBindCore(mBridgeUid, mBridgeTid,1000);
                 showResult(ret, "requestThreadPriority ");
             }
         }));
