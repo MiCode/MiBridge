@@ -33,14 +33,14 @@
 
 ## Index
 
-- [Our Purpose](#Our Purpose)
-- [Introduction](#Introduction)
-- [Our Advantages](#Our Advantages)
-- [Access Note](#Access Note)
-  - [Applying for debugging](#Applying for debugging)
-  - [APIs](#APIs)
-  - [Applying for fromal permission](#Applying for fromal permission)
-  - [More cooperation](#More cooperation)
+- [Our Purpose](#our-purpose)
+- [Introduction](#introduction)
+- [Our Advantages](#our-advantages)
+- [Access Note](#access-note)
+  - [Applying for debugging permission](#applying-for-debugging-permission)
+  - [APIs](#apis)
+  - [Applying for fromal permission](#applying-for-fromal-permission)
+  - [More cooperation](#more-cooperation)
 
 ## Our Purpose
 All for users, make users getting the best experience!
