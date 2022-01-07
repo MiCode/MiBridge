@@ -11,15 +11,15 @@
   </p>
   <p>
     <a >
-      <img src="data/MiSpeed-1.0.0.svg" alt="GNU/Linux Build Status" />
+      <img src="data/MiSpeed-1.0.0.svg" alt="Build Status" />
     </a>
     <a >
-      <img src="data/docs-1.0.0-blue.svg" alt="Windows Build Status" />
+      <img src="data/docs-1.0.0-blue.svg" alt="Doc Status" />
     </a>
-      <img src="data/jar-available-blueviolet.svg" alt="MacOS Build Status" />
+      <img src="data/jar-available-blueviolet.svg" alt="Jar Status" />
     </a>
     <a >
-      <img src="data/license-Apache2.0-brightgreen.svg" alt="Nightly Build" />
+      <img src="data/license-Apache2.0-brightgreen.svg" alt="license" />
     </a>
     <br>
   </p>
