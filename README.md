@@ -1,6 +1,46 @@
+<div align="center">
+  <p>
+    <h1>
+      <a href="https://github.com/MiCode/MiBridge">
+        <img src="data/xiaomi_circle.svg" alt="MiBridge" />
+      </a>
+      <br />
+      MiSpeed
+    </h1>
+    <h4>Powerful yet simple to use .</h4>
+  </p>
+  <p>
+    <a >
+      <img src="data/MiSpeed-1.0.0.svg" alt="GNU/Linux Build Status" />
+    </a>
+    <a >
+      <img src="data/docs-1.0.0-blue.svg" alt="Windows Build Status" />
+    </a>
+      <img src="data/jar-available-blueviolet.svg" alt="MacOS Build Status" />
+    </a>
+    <a >
+      <img src="data/license-Apache2.0-brightgreen.svg" alt="Nightly Build" />
+    </a>
+    <br>
+  </p>
+</div>
+
+
 # MiSpeed
 ## Other language versions
 [简体中文](./README_zh.md)
+
+
+## Index
+
+- [Our Purpose](#our-purpose)
+- [Introduction](#introduction)
+- [Our Advantages](#our-advantages)
+- [Access Note](#access-note)
+  - [Applying for debugging permission](#applying-for-debugging-permission)
+  - [APIs](#apis)
+  - [Applying for fromal permission](#applying-for-fromal-permission)
+  - [More cooperation](#more-cooperation)
 
 ## Our Purpose
 All for users, make users getting the best experience!
@@ -21,7 +61,7 @@ which can improve the performance of developers in key application scenarios and
 &emsp; Inclued： <br>
 &emsp;&emsp;*mibridge*: Source code of MiBridge.jar<br>
 &emsp;&emsp;*app*: Testing application code.<br>
-#### 1. Applying for debugging permission<br>
+#### Applying for debugging permission<br>
 Please provide the following information and send it to xiaomi-mispeed-support@xiaomi.com to apply for debugging permission.<br>
 Subject：xx Company，Applying for MiSpeed debugging permission。<br>
 
@@ -38,7 +78,7 @@ Note: What is VAID, how to get it?
 
 [__Support Devices__](./support_devices.md)
 
-#### 2. APIs
+#### APIs
 __Permission apis__<br>
 
 1. ```boolean checkDebugPermission(Context context, String pkg, int uid, String auth_key)```<br>
@@ -126,7 +166,7 @@ __APIs for request system resouce__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-<h4 id="formal">3. Applying for fromal permission</h4>
+#### Applying for fromal permission
 Please provide the following information and send it to xiaomi-mispeed-support@xiaomi.com to apply for formal permission.<br>
 Subject：xx Company，Applying for MiSpeed formal permission。<br>
 __`Note：To apply for formal permission,relevant business agreements need to be signed.`__<br>
@@ -160,7 +200,7 @@ Scenario 2 | .. | .. | ..
 Note：We will also do power consumption test according to the scenarios provided by you.<br>
 
 
-#### 4. More cooperation
+#### More cooperation
 More APIs will be supported in the future<br>
 requestGpuHighFreq，requestIOHighFreq，requestMemory，requestNetwork and so on.
 

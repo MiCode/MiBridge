@@ -1,6 +1,49 @@
+<div align="center">
+  <p>
+    <h1>
+      <a href="https://github.com/MiCode/MiBridge">
+        <img src="data/xiaomi_circle.svg" alt="MiBridge" />
+      </a>
+      <br />
+      MiSpeed
+    </h1>
+    <h4>Powerful yet simple to use .</h4>
+  </p>
+  <p>
+    <a >
+      <img src="data/MiSpeed-1.0.0.svg" alt="Build Status" />
+    </a>
+    <a >
+      <img src="data/docs-1.0.0-blue.svg" alt="Doc Status" />
+    </a>
+      <img src="data/jar-available-blueviolet.svg" alt="Jar Status" />
+    </a>
+    <a >
+      <img src="data/license-Apache2.0-brightgreen.svg" alt="license" />
+    </a>
+    <br>
+  </p>
+</div>
+
+
 # 小米应用加速器
 ## 其他语言
 [English](./README.md)
+
+
+## Index
+
+- [我们的目的](#我们的目的)
+- [简介](#简介)
+- [我们的优势](#我们的优势)
+- [接入说明](#接入说明)
+  - [申请调试权限](#申请调试权限)
+  - [接口定义](#接口定义)
+  - [申请正式权限](#申请正式权限)
+  - [更多合作](#更多合作)
+
+
+
 
 ## 我们的目的
 一切为了用户，让用户得到最好的体验！
@@ -20,7 +63,7 @@
 &emsp;此目录包含： <br>
 &emsp;&emsp;*mibridge*: MiBridge jar包的实现代码。<br>
 &emsp;&emsp;*app*: 测试MiBridge的app代码。<br>
-#### 1. 申请调试权限<br>
+#### 申请调试权限
 请提供以下信息，发送到邮箱xiaomi-mispeed-support@xiaomi.com, 申请接入调试权限。<br>
 #### 邮件主题：xx（APP名称）申请小米应用加速器接入调试权限<br>
 
@@ -32,7 +75,7 @@ com.mi.testmibridge | 张三 |
 
 [__支持设备版本列表__](./support_devices.md)
 
-#### 2. 接口定义
+#### 接口定义
 __权限检查接口__<br>
 
 1. ```boolean checkPermission(String pkg, int uid)```<br>
@@ -178,7 +221,7 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-<h4 id="formal">3. 申请正式权限</h4>
+#### 申请正式权限
 请提供以下信息，发送到邮箱xiaomi-mispeed-support@xiaomi.com, 申请正式权限。<br>
 邮件主题：xx（APP名称）申请小米应用加速器正式权限<br>
 __1. 资源接口使用场景<br>
@@ -211,7 +254,7 @@ __3. 功耗测试<br>
 备注：我们也会根据您提供的场景进行功耗测试。<br>
 
 
-#### 4. 更多合作
+#### 更多合作
 后续将会开放更多接口<br>
 requestIOHighFreq，requestMemory，requestNetwork等
 
