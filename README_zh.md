@@ -220,6 +220,57 @@ __系统资源申请接口__<br>
       0:   Success<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
+__系统状态接口__<br>
+
+12. ```int getSystemState(int uid, Context context, int type)```<br>
+      __介绍：查询系统状态__<br>
+      参数：<br>
+      *uid* : 调用者UID <br>
+      *context* : 应用上下文
+      *type* : 查询的系统状态类型，目前有两类: <br>
+       -  1 : 设备壳温 <br>
+       -  2 : 系统省电模式 <br>
+
+      返回结果 : <br>
+      - 当查询设备壳温时(type = 1)，返回对应温度的温控级别
+        - 0: 正常范围（<=35℃）
+        - 1: 轻微限频（35℃~40℃）
+        - 2: 较严重限频（40℃~45℃）
+        - 3: 非常严重限频（>=45℃）
+      - 当查询设备省电模式(type = 2)，返回当前省电模式
+        - 0：性能模式
+        - 1：均衡模式
+        - 2：省电模式
+        - 3：超级省电
+
+13. ```int registerThermalEventCallback(int uid, ThermalEventCallBack cb)```<br>
+      __介绍：注册回调，当系统温控级别发生变化，触发回调接口onThermalLevelChanged__<br>
+
+    ```java
+    ThermalEventCallBack  cb = new ThermalEventCallBack() {
+        @Override
+        public void onThermalLevelChanged(int level) {
+            //do somthing;
+        }
+    };
+    ```
+      参数 : <br>
+      *uid* : 调用者UID<br>
+      *cb* : 回调示例，须重写onThermalLevelChanged()方法 <br>
+      返回结果 : <br>
+      - 0 : 注册成功
+      - -1 : 注册失败
+
+14. ```int unRegisterThermalEventCallback(int uid, ThermalEventCallBack cb)``` <br>
+      介绍：注消回调 <br>
+      参数： <br>
+      *uid* : 调用者UID <br>
+      *cb* : 回调示例 <br>
+      返回结果 :  <br>
+      - 0 : 注册成功 <br>
+      - -1 : 注册失败 <br>
+
+
 
 #### 申请正式权限
 请提供以下信息，发送到邮箱xiaomi-mispeed-support@xiaomi.com, 申请正式权限。<br>
