@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 import dalvik.system.PathClassLoader;
 
@@ -17,6 +18,7 @@ public class MiBridge {
     private static final String TAG = "MiBridge";
     private static final String PERFORMANCE_JAR = "/system/framework/MiuiBooster.jar";
     private static final String PERFORMANCE_CLASS = "com.miui.performance.MiuiBooster";
+    private static final String ITHERMALEVENTCALLBACK_CLASS = "com.miui.performance.IThermalEventCallBack";
 
     private static Method mCheckPermissionFunc = null;
     private static Method mCheckDebugPermissionFunc = null;
@@ -31,8 +33,13 @@ public class MiBridge {
     private static Method mCancelDdrHighFunc = null;
     private static Method mRequestBindCoreFunc = null;
     private static Method mCancelBindCoreFunc = null;
+    private static Method mGetSystemStateFunc = null;
+    private static Method mRegisterThermalEventCallbackFunc = null;
+    private static Method mUnRegisterThermalEventCallbackFunc = null;
+
 
     private static Class perfClass;
+    private static Class IThermalEventCallBackClass = null;
     private static PathClassLoader perfClassLoader;
 
     private static Constructor<Class> mConstructor = null;
@@ -43,6 +50,7 @@ public class MiBridge {
             perfClassLoader = new PathClassLoader(PERFORMANCE_JAR,
                     ClassLoader.getSystemClassLoader());
             perfClass = perfClassLoader.loadClass(PERFORMANCE_CLASS);
+            IThermalEventCallBackClass = perfClassLoader.loadClass(ITHERMALEVENTCALLBACK_CLASS);
             mConstructor = perfClass.getConstructor();
             Class[] argClasses = new Class[]{String.class, int.class};
             try {
@@ -140,6 +148,28 @@ public class MiBridge {
             } catch (Exception e) {
                 Log.e(TAG, "requestIOPrefetch no exit");
             }
+
+            try {
+                argClasses = new Class[]{int.class, Context.class, int.class};
+                mGetSystemStateFunc = perfClass.getDeclaredMethod("getSystemState", argClasses);
+            } catch (Exception e) {
+                Log.e(TAG, "getSystemState no exit");
+            }
+
+            try {
+                argClasses = new Class[] {int.class, IThermalEventCallBackClass };
+                mRegisterThermalEventCallbackFunc = perfClass.getDeclaredMethod("registerThermalEventCallback", argClasses);
+            } catch (Exception e) {
+                Log.e(TAG, "registerThermalEventCallback no exit, " + e);
+            }
+
+            try {
+                argClasses = new Class[]{int.class, IThermalEventCallBackClass };
+                mUnRegisterThermalEventCallbackFunc = perfClass.getDeclaredMethod("unRegisterThermalEventCallback", argClasses);
+            } catch (Exception e) {
+                Log.e(TAG, "UnRegisterThermalEventCallback no exit");
+            }
+
         } catch (Exception e) {
             Log.e(TAG, "MiBridge() : Load Class Exception: " + e);
         }
@@ -299,4 +329,54 @@ public class MiBridge {
         }
         return ret;
     }
+
+    public static int getSystemState(int uid, Context context, int type) {
+        int ret = -1;
+        try {
+            Object retVal = mGetSystemStateFunc.invoke(mPerf, uid, context, type);
+            ret = (int) retVal;
+        } catch (Exception e) {
+            Log.e(TAG, "get system state failed , e:" + e.toString());
+        }
+        return ret;
+    }
+
+    public static int registerThermalEventCallback(int uid, ThermalEventCallBack cb) {
+        int ret = -1;
+        Object Obj = null;
+        try {
+            Obj = cb.getProxy(IThermalEventCallBackClass);
+        } catch (Exception e) {
+            Log.e(TAG, "getProxy failed, e: " + e.toString());
+            return ret;
+        }
+
+        try {
+            Object retVal = mRegisterThermalEventCallbackFunc.invoke(mPerf, uid, Obj);
+            ret = (int) retVal;
+        } catch (Exception e) {
+            Log.e(TAG, "registerThermalEventCallback failed , e:" + e.toString());
+        }
+        return ret;
+    }
+
+
+    public static int unRegisterThermalEventCallback(int uid, ThermalEventCallBack cb) {
+        int ret = -1;
+        Object Obj = null;
+        try {
+            Obj = cb.getProxy(IThermalEventCallBackClass);
+        } catch (Exception e) {
+            Log.e(TAG, "getProxy failed, e: " + e.toString());
+            return ret;
+        }
+        try {
+            Object retVal = mUnRegisterThermalEventCallbackFunc.invoke(mPerf, uid, Obj);
+            ret = (int) retVal;
+        } catch (Exception e) {
+            Log.e(TAG, "unRegisterThermalEventCallback failed , e:" + e.toString());
+        }
+        return ret;
+    }
+
 }

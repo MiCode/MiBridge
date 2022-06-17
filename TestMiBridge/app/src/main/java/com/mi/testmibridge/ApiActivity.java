@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,11 +15,14 @@ import android.widget.Toast;
 
 import com.bun.miitmdid.core.JLibrary;
 import com.mi.mibridge.MiBridge;
+import com.mi.mibridge.ThermalEventCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ApiActivity extends AppCompatActivity {
+
+    private static final String TAG = "TestMiBridge";
 
     // 数据源
     private List<MiBridgeModel> miBridgeModels = new ArrayList<>();
@@ -65,6 +69,15 @@ public class ApiActivity extends AppCompatActivity {
     // tid
     private int mBridgeTid;
 
+    // system state
+    private static final int QUERY_BOARD_TEMP = 1;
+    private static final int QUERY_POWER_MODE = 2;
+
+    // ThermalEventCallBack
+    ThermalEventCallBack mThermalEventCallBack = null;
+    Context mContext;
+
+
     private MiitHelper.AppIdsUpdater appIdsUpdater = new MiitHelper.AppIdsUpdater() {
         @Override
         public void OnIdsAvalid(@NonNull String ids) {
@@ -89,6 +102,7 @@ public class ApiActivity extends AppCompatActivity {
 
         initData();
         initView();
+        mContext = this;
     }
 
     private void initView() {
@@ -239,6 +253,58 @@ public class ApiActivity extends AppCompatActivity {
                 showResult(ret, "requestThreadPriority ");
             }
         }));
+
+        miBridgeModels.add(new MiBridgeModel("getSystemState -> boardTemp", new Runnable() {
+            @Override
+            public void run() {
+                int ret = MiBridge.getSystemState(mBridgeUid, mContext, QUERY_BOARD_TEMP);
+                Toast.makeText(ApiActivity.this, "getSystemState: " + ret, Toast.LENGTH_SHORT).show();
+            }
+        }));
+
+        miBridgeModels.add(new MiBridgeModel("getSystemState -> powerMode", new Runnable() {
+            @Override
+            public void run() {
+                int ret = MiBridge.getSystemState(mBridgeUid, mContext, QUERY_POWER_MODE);
+                Toast.makeText(ApiActivity.this, "getSystemState: " + ret, Toast.LENGTH_SHORT).show();
+            }
+        }));
+
+        miBridgeModels.add(new MiBridgeModel("registerThermalEventCallback", new Runnable() {
+            @Override
+            public void run() {
+                if(mThermalEventCallBack == null) {
+                    mThermalEventCallBack = new ThermalEventCallBack() {
+                        @Override
+                        public void onThermalLevelChanged(int level) {
+                            Log.e(TAG, "onThermalLevelChanged: " + level);
+                            //do somthing;
+                        }
+                    };
+                    int ret = MiBridge.registerThermalEventCallback(mBridgeUid, mThermalEventCallBack);
+                    Toast.makeText(ApiActivity.this, "registerThermalEventCallback: " + ret, Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.w(TAG, "You should unRegisterThermalEventCallback last one!");
+                    Toast.makeText(ApiActivity.this, "To unRegisterThermalEventCallback last one!!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }));
+
+        miBridgeModels.add(new MiBridgeModel("unRegisterThermalEventCallback", new Runnable() {
+            @Override
+            public void run() {
+                if(mThermalEventCallBack != null) {
+                    int ret = MiBridge.unRegisterThermalEventCallback(mBridgeUid, mThermalEventCallBack);
+                    Toast.makeText(ApiActivity.this, "unRegisterThermalEventCallback: " + ret, Toast.LENGTH_SHORT).show();
+                    mThermalEventCallBack = null;
+                } else {
+                    Log.w(TAG, "You should registerThermalEventCallback first!");
+                    Toast.makeText(ApiActivity.this, "To registerThermalEventCallback first!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }));
+
     }
 
 
