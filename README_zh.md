@@ -258,8 +258,8 @@ __系统状态接口__<br>
       *uid* : 调用者UID<br>
       *cb* : 回调实例，须重写onThermalLevelChanged()方法 <br>
       返回结果 : <br>
-      - 0 : 注消成功
-      - -1 : 注消失败
+      - 0 : 注册成功
+      - -1 : 注册失败
 
 14. ```int unRegisterThermalEventCallback(int uid, ThermalEventCallBack cb)``` <br>
       介绍：注消回调 <br>
@@ -267,8 +267,8 @@ __系统状态接口__<br>
       *uid* : 调用者UID <br>
       *cb* : 回调实例 <br>
       返回结果 :  <br>
-      - 0 : 注册成功 <br>
-      - -1 : 注册失败 <br>
+      - 0 : 注消成功 <br>
+      - -1 : 注销失败 <br>
 
 
 
