@@ -77,8 +77,20 @@ com.mi.testmibridge | 张三 |
 
 #### 接口定义
 __权限检查接口__<br>
+1. ```boolean checkDebugPermission(Context context, String pkg, int uid, String auth_key)```<br>
+      __介绍：通过申请获得的鉴权码，检查应用是否有调试权限。__<br>
 
-1. ```boolean checkPermission(String pkg, int uid)```<br>
+      参数：<br>
+      *context* : 应用上下文<br>
+      *pkg* : 应用包名<br>
+      *uid* : android.os.Process.myUid()<br>
+      *auth_key* : 上一步中申请获得的鉴权码<br>
+
+      返回结果：<br>
+      true: 权限检查通过<br>
+      false: 权限检查失败，无接口使用权限<br>
+
+2. ```boolean checkPermission(String pkg, int uid)```<br>
       __介绍：检查应用是否有权限__<br>
 
       参数：<br>
@@ -91,7 +103,7 @@ __权限检查接口__<br>
 
 __系统资源申请接口__<br>
 
-2. ```int requestCpuHighFreq(int uid, int level, int timeoutms)```<br>
+3. ```int requestCpuHighFreq(int uid, int level, int timeoutms)```<br>
       __介绍：向系统申请cpu频率资源的接口__<br>
 
       参数：<br>
@@ -113,7 +125,7 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-3. ```int cancelCpuHighFreq(int uid)```<br>
+4. ```int cancelCpuHighFreq(int uid)```<br>
       __介绍：取消申请cpu频率资源的接口__<br>
 
       参数：<br>
@@ -124,7 +136,7 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-4. ```int requestThreadPriority(int uid, int req_tid, int timeoutms)```<br>
+5. ```int requestThreadPriority(int uid, int req_tid, int timeoutms)```<br>
       __介绍：申请线程获得高优先级，将会优先得到调度运行__<br>
 
       参数：<br>
@@ -137,7 +149,7 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-5. ```int cancelThreadPriority (int uid, int req_tid)```<br>
+6. ```int cancelThreadPriority (int uid, int req_tid)```<br>
       __介绍：取消申请线程优先级的接口__<br>
 
       参数：<br>
@@ -149,7 +161,7 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-6. ```int requestGpuHighFreq(int uid, int level, int timeoutms)```<br>
+7. ```int requestGpuHighFreq(int uid, int level, int timeoutms)```<br>
       __介绍：向系统申请gpu频率资源的接口__<br>
 
       参数：<br>
@@ -162,7 +174,7 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-7. ```int cancelGpuHighFreq(int uid)```<br>
+8. ```int cancelGpuHighFreq(int uid)```<br>
       __介绍：取消申请gpu频率资源的接口__<br>
 
       参数：<br>
@@ -173,7 +185,7 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-8. ```int requestDdrHighFreq(int uid, int level, int timeoutms)```<br>
+9. ```int requestDdrHighFreq(int uid, int level, int timeoutms)```<br>
       __介绍：向系统申请ddr频率资源的接口__<br>
 
       参数：<br>
@@ -186,7 +198,7 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-9. ```int cancelDdrHighFreq(int uid)```<br>
+10. ```int cancelDdrHighFreq(int uid)```<br>
       __介绍：取消申请ddr频率资源的接口__<br>
 
       参数：<br>
@@ -197,7 +209,7 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-10. ```int requestIOPrefetch(int uid, String filePath)```<br>
+11. ```int requestIOPrefetch(int uid, String filePath)```<br>
       __介绍：申请IO预读取接口__<br>
 
       参数：<br>
@@ -209,7 +221,7 @@ __系统资源申请接口__<br>
       -1:  Fail<br>
       -2:  Permission not granted!<br>
 
-11. ```int requestBindCore(int uid, int req_tid)```<br>
+12. ```int requestBindCore(int uid, int req_tid)```<br>
       __介绍：申请线程优先大核运行接口__<br>
 
       参数：<br>
@@ -222,7 +234,7 @@ __系统资源申请接口__<br>
       -2:  Permission not granted!<br>
 __系统状态接口__<br>
 
-12. ```int getSystemState(int uid, Context context, int type)```<br>
+13. ```int getSystemState(int uid, Context context, int type)```<br>
       __介绍：查询系统状态__<br>
       参数：<br>
       *uid* : 调用者UID <br>
@@ -245,7 +257,7 @@ __系统状态接口__<br>
         - 3：超级省电
         - -2 : Permission not granted!
 
-13. ```int registerThermalEventCallback(int uid, ThermalEventCallBack cb)```<br>
+14. ```int registerThermalEventCallback(int uid, ThermalEventCallBack cb)```<br>
       __介绍：注册回调，当系统温控级别发生变化，触发回调接口onThermalLevelChanged__<br>
 
     ```java
@@ -264,7 +276,7 @@ __系统状态接口__<br>
       - -1 : 注册失败
       - -2 : Permission not granted!
 
-14. ```int unRegisterThermalEventCallback(int uid, ThermalEventCallBack cb)``` <br>
+15. ```int unRegisterThermalEventCallback(int uid, ThermalEventCallBack cb)``` <br>
       __介绍：注销回调__ <br>
       参数： <br>
       *uid* : 调用者UID <br>
