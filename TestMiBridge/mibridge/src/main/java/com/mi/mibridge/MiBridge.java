@@ -50,7 +50,6 @@ public class MiBridge {
             perfClassLoader = new PathClassLoader(PERFORMANCE_JAR,
                     ClassLoader.getSystemClassLoader());
             perfClass = perfClassLoader.loadClass(PERFORMANCE_CLASS);
-            IThermalEventCallBackClass = perfClassLoader.loadClass(ITHERMALEVENTCALLBACK_CLASS);
             mConstructor = perfClass.getConstructor();
             Class[] argClasses = new Class[]{String.class, int.class};
             try {
@@ -58,6 +57,12 @@ public class MiBridge {
             } catch (Exception e) {
                 Log.e(TAG, "checkPermission no exit");
             }
+            try {
+                IThermalEventCallBackClass = perfClassLoader.loadClass(ITHERMALEVENTCALLBACK_CLASS);
+            }catch (Exception e){
+                Log.e(TAG, "com.miui.performance.IThermalEventCallBack not exits!");
+            }
+
             try {
                 argClasses = new Class[]{Context.class, String.class, int.class, String.class};
                 mCheckDebugPermissionFunc = perfClass.getDeclaredMethod("checkPermission", argClasses);
