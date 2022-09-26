@@ -36,6 +36,7 @@ public class MiBridge {
     private static Method mGetSystemStateFunc = null;
     private static Method mRegisterThermalEventCallbackFunc = null;
     private static Method mUnRegisterThermalEventCallbackFunc = null;
+    private static Method mSetDynamicRefreshRateSceneFunc = null;
 
 
     private static Class perfClass;
@@ -159,6 +160,13 @@ public class MiBridge {
                 mGetSystemStateFunc = perfClass.getDeclaredMethod("getSystemState", argClasses);
             } catch (Exception e) {
                 Log.e(TAG, "getSystemState no exit");
+            }
+
+            try {
+                argClasses = new Class[]{int.class, String.class, int.class};
+                mSetDynamicRefreshRateSceneFunc = perfClass.getDeclaredMethod("setDynamicRefreshRateScene", argClasses);
+            } catch (Exception e) {
+                Log.e(TAG, "setDynamicRefreshRateScene no exit");
             }
 
             try {
@@ -380,6 +388,17 @@ public class MiBridge {
             ret = (int) retVal;
         } catch (Exception e) {
             Log.e(TAG, "unRegisterThermalEventCallback failed , e:" + e.toString());
+        }
+        return ret;
+    }
+
+    public static int setDynamicRefreshRateScene(int uid, String pkgName, int sceneId) {
+        int ret = -1;
+        try {
+            Object retVal = mSetDynamicRefreshRateSceneFunc.invoke(mPerf, uid, pkgName, sceneId);
+            ret = (int) retVal;
+        } catch (Exception e) {
+            Log.e(TAG, "set dynamic refresh rate failed , e:" + e.toString());
         }
         return ret;
     }

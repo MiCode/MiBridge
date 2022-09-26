@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">TestMiBridge</string>
+    <string name="error_generic">Playback failed</string>
+    <string name="error_querying_decoders">Unable to query device decoders</string>
+    <string name="error_no_secure_decoder">This device does not provide a secure decoder for</string>
+    <string name="error_no_decoder">This device does not provide a decoder for </string>
+    <string name="error_instantiating_decoder">Unable to instantiate decoder</string>
+    <string name="close_bar">关闭弹幕</string>
+    <string name="open_bar">打开弹幕</string>
+    <string name="text_introduce">当前视频帧率：30 帧/秒</string>
+    <string name="close_bar_intro">App期望30Hz，节省功耗</string>
+    <string name="open_bar_intro">App期望高刷120Hz，提升性能</string>
+    <string name="open_video">视频</string>
+    <string name="open_live">直播</string>
+    <string name="text_introduce2">当前视频帧率：24 帧/秒</string>
+    <string name="send_gift">打开送礼</string>
+    <string name="close_gift">关闭送礼</string>
+    <string name="send_gift_intro">App期望高刷120Hz，实际最大60Hz</string>
+    <string name="close_gift_intro">App期望24Hz，节省功耗</string>
+</resources>
