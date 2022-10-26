@@ -392,7 +392,7 @@ public class MiBridge {
         return ret;
     }
 
-    public static int setDynamicRefreshRateScene(int uid, String pkgName, int sceneId) {
+    public static int setScene(int uid, String pkgName, int sceneId) {
         int ret = -1;
         try {
             Object retVal = mSetDynamicRefreshRateSceneFunc.invoke(mPerf, uid, pkgName, sceneId);

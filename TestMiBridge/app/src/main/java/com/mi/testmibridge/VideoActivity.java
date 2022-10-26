@@ -67,7 +67,7 @@ public class VideoActivity extends AppCompatActivity {
         String packageName = getApplicationContext().getPackageName();
         int bridgeUid = android.os.Process.myUid();
         openBarBtn.setOnClickListener(v -> {
-            MiBridge.setDynamicRefreshRateScene(bridgeUid, packageName, OPEN_BARRAGE);
+            MiBridge.setScene(bridgeUid, packageName, OPEN_BARRAGE);
             openBarBtn.setEnabled(false);
             closeBarBtn.setEnabled(true);
             changeRate(120);
@@ -75,7 +75,7 @@ public class VideoActivity extends AppCompatActivity {
 
         });
         closeBarBtn.setOnClickListener(v -> {
-            MiBridge.setDynamicRefreshRateScene(bridgeUid, packageName, CLOSE_BARRAGE);
+            MiBridge.setScene(bridgeUid, packageName, CLOSE_BARRAGE);
             openBarBtn.setEnabled(true);
             closeBarBtn.setEnabled(false);
             changeRate(30);

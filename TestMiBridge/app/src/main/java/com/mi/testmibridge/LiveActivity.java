@@ -47,7 +47,7 @@ public class LiveActivity extends AppCompatActivity {
         String packageName = getApplicationContext().getPackageName();
         int bridgeUid = android.os.Process.myUid();
         sendGiftBtn.setOnClickListener(v -> {
-            MiBridge.setDynamicRefreshRateScene(bridgeUid, packageName, SEND_GIFT_BARRAGE);
+            MiBridge.setScene(bridgeUid, packageName, SEND_GIFT_BARRAGE);
             sendGiftBtn.setEnabled(false);
             closeGiftBtn.setEnabled(true);
             changeRate(120);
@@ -55,7 +55,7 @@ public class LiveActivity extends AppCompatActivity {
 
         });
         closeGiftBtn.setOnClickListener(v -> {
-            MiBridge.setDynamicRefreshRateScene(bridgeUid, packageName, CLOSE_GIFT_BARRAGE);
+            MiBridge.setScene(bridgeUid, packageName, CLOSE_GIFT_BARRAGE);
             sendGiftBtn.setEnabled(true);
             closeGiftBtn.setEnabled(false);
             changeRate(24);
