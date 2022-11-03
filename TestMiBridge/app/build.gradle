@@ -52,8 +52,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation files('libs/MiBridge.jar')
     implementation files('libs/miit_mdid_1.0.10.aar')
     implementation "com.google.android.exoplayer:exoplayer:2.18.1"
     implementation 'com.google.android.material:material:1.4.0'
+    implementation "com.xiaomi.mibridge:mibridge:1.0.5"
 }

@@ -18,7 +18,14 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+
+        maven {
+            url "https://repos.xiaomi.com/maven"
+            credentials {
+                username 'mi-bridge'
+                password 'AKCp8nH4XbDQshne9w5PgaLroZ7kozqtAPo6Kw6pfZLBWzPEtAJoFzU73RHryxXkmcL5biUL2'
+            }
+        }
     }
 }
 

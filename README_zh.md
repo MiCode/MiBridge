@@ -38,6 +38,7 @@
 - [我们的优势](#我们的优势)
 - [接入说明](#接入说明)
   - [申请调试权限](#申请调试权限)
+  - [使用maven依赖](#使用maven依赖)
   - [接口定义](#接口定义)
   - [申请正式权限](#申请正式权限)
   - [更多合作](#更多合作)
@@ -75,7 +76,43 @@ com.mi.testmibridge | 张三 |
 
 [__支持设备版本列表__](./support_devices.md)
 
+#### **使用maven依赖**
+
+1.**配置小米应用加速器的Maven仓库地址**
+
+打开Android Studio项目级“build.gradle”文件。在“allprojects > repositories”中配置小米应用加速器的Maven仓地址。
+
+```
+allprojects {
+ repositories { 
+        ...
+  //增加小米应用加速器的Maven仓库地址
+  maven {
+    url "https://repos.xiaomi.com/maven"
+    credentials {
+      username 'mi-bridge'
+      password 'AKCp8nH4XbDQshne9w5PgaLroZ7kozqtAPo6Kw6pfZLBWzPEtAJoFzU73RHryxXkmcL5biUL2'
+      }
+    }
+  }
+}
+```
+
+**2、添加编译依赖**
+
+打开应用级的“build.gradle”文件。
+
+```
+dependencies {
+    ...
+    //1.0.5是mibridge的版本号，后续升级也要修改对应版本号。
+    implementation "com.xiaomi.mibridge:mibridge:1.0.5"
+    ...
+}
+```
+
 #### 接口定义
+
 __权限检查接口__<br>
 1. ```boolean checkDebugPermission(Context context, String pkg, int uid, String auth_key)```<br>
       __介绍：通过申请获得的鉴权码，检查应用是否有调试权限。__<br>

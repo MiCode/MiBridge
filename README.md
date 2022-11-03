@@ -38,6 +38,7 @@
 - [Our Advantages](#our-advantages)
 - [Access Note](#access-note)
   - [Applying for debugging permission](#applying-for-debugging-permission)
+  - [Use maven dependency](#Use maven dependency)
   - [APIs](#apis)
   - [Applying for fromal permission](#applying-for-fromal-permission)
   - [More cooperation](#more-cooperation)
@@ -77,6 +78,41 @@ Note: What is VAID, how to get it?
 3. You can refer to the example in TestMiBridge. (Testing getVAID)
 
 [__Support Devices__](./support_devices.md)
+
+#### Use maven dependency
+
+1.**Configure the Maven repository address of Xiaomi App Accelerator**
+
+Open the Android Studio project-level "build.gradle" file. Configure the Maven repository address of Xiaomi App Accelerator in "allprojects > repositories".
+
+```
+allprojects {
+ repositories { 
+        ...
+  //增加小米应用加速器的Maven仓库地址
+  maven {
+    url "https://repos.xiaomi.com/maven"
+    credentials {
+      username 'mi-bridge'
+      password 'AKCp8nH4XbDQshne9w5PgaLroZ7kozqtAPo6Kw6pfZLBWzPEtAJoFzU73RHryxXkmcL5biUL2'
+      }
+    }
+  }
+}
+```
+
+**2. Add compilation dependencies**
+
+Open the app-level "build.gradle" file.
+
+```
+dependencies {
+    ...
+    //1.0.5 is the version number of mibridge. Subsequent upgrades should also modify the corresponding version number.
+    implementation "com.xiaomi.mibridge:mibridge:1.0.5"
+    ...
+}
+```
 
 #### APIs
 __Permission apis__<br>
