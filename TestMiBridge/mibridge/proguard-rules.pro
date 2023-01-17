@@ -34,3 +34,8 @@
 public <fields>;
 public <methods>;
 }
+
+-keep class com.xiaomi.NetworkBoost.* {
+public <fields>;
+public <methods>;
+}

@@ -3,9 +3,19 @@ package com.mi.mibridge;
 import android.content.Context;
 import android.util.Log;
 
+import com.xiaomi.NetworkBoost.IAIDLMiuiNetQoECallback;
+import com.xiaomi.NetworkBoost.IAIDLMiuiNetworkCallback;
+import com.xiaomi.NetworkBoost.IAIDLMiuiWlanQoECallback;
+import com.xiaomi.NetworkBoost.NetLinkLayerQoE;
+import com.xiaomi.NetworkBoost.NetworkBoostManager;
+import com.xiaomi.NetworkBoost.ServiceCallback;
+
+import java.io.FileDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 import dalvik.system.PathClassLoader;
 
@@ -38,6 +48,7 @@ public class MiBridge {
     private static Method mUnRegisterThermalEventCallbackFunc = null;
     private static Method mSetDynamicRefreshRateSceneFunc = null;
 
+    private static NetworkBoostManager sNetworkBoostManager;
 
     private static Class perfClass;
     private static Class IThermalEventCallBackClass = null;
@@ -60,7 +71,7 @@ public class MiBridge {
             }
             try {
                 IThermalEventCallBackClass = perfClassLoader.loadClass(ITHERMALEVENTCALLBACK_CLASS);
-            }catch (Exception e){
+            } catch (Exception e) {
                 Log.e(TAG, "com.miui.performance.IThermalEventCallBack not exits!");
             }
 
@@ -143,7 +154,7 @@ public class MiBridge {
                 //cancelcore
                 argClasses = new Class[]{int.class, int.class};
                 mCancelBindCoreFunc = perfClass.getDeclaredMethod("cancelBindCore", argClasses);
-            } catch (Exception e){
+            } catch (Exception e) {
                 Log.e(TAG, "cancelBindCore no exit");
             }
 
@@ -170,14 +181,14 @@ public class MiBridge {
             }
 
             try {
-                argClasses = new Class[] {int.class, IThermalEventCallBackClass };
+                argClasses = new Class[]{int.class, IThermalEventCallBackClass};
                 mRegisterThermalEventCallbackFunc = perfClass.getDeclaredMethod("registerThermalEventCallback", argClasses);
             } catch (Exception e) {
                 Log.e(TAG, "registerThermalEventCallback no exit, " + e);
             }
 
             try {
-                argClasses = new Class[]{int.class, IThermalEventCallBackClass };
+                argClasses = new Class[]{int.class, IThermalEventCallBackClass};
                 mUnRegisterThermalEventCallbackFunc = perfClass.getDeclaredMethod("unRegisterThermalEventCallback", argClasses);
             } catch (Exception e) {
                 Log.e(TAG, "UnRegisterThermalEventCallback no exit");
@@ -403,4 +414,285 @@ public class MiBridge {
         return ret;
     }
 
+    /**
+     * Network func
+     * @param context Context
+     * @param cb ServiceCallback
+     */
+    public static void initNetwork(Context context, ServiceCallback cb) {
+        sNetworkBoostManager = new NetworkBoostManager(context, cb);
+    }
+
+    public static boolean bindService() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.bindService();
+    }
+
+    public static void unbindService() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return;
+        }
+        sNetworkBoostManager.unbindService();
+    }
+
+    public static boolean setSockPrio(int fd, int prio) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.setSockPrio(fd, prio);
+    }
+
+    public static boolean setSockPrio(FileDescriptor fd, int prio) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.setSockPrio(fd, prio);
+    }
+
+    public static boolean setSockPrio(Socket sock, int prio) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.setSockPrio(sock, prio);
+    }
+
+    public static boolean setTCPCongestion(int fd, String cc) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.setTCPCongestion(fd, cc);
+    }
+
+    public static boolean setTCPCongestion(FileDescriptor fd, String cc) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.setTCPCongestion(fd, cc);
+    }
+
+    public static boolean setTCPCongestion(Socket sock, String cc) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.setTCPCongestion(sock, cc);
+    }
+
+    public static boolean isSupportDualWifi() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.isSupportDualWifi();
+    }
+
+    public static boolean setSlaveWifiEnable(boolean enable){
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.setSlaveWifiEnable(enable);
+    }
+
+    public static boolean connectSlaveWifi(int networkId){
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.connectSlaveWifi(networkId);
+    }
+
+    public static boolean disconnectSlaveWifi(){
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.disconnectSlaveWifi();
+    }
+
+    public static boolean setTrafficTransInterface(int fd, String bindInterface){
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.setTrafficTransInterface(fd,bindInterface);
+    }
+
+    public static boolean setTrafficTransInterface(FileDescriptor fd, String bindInterface) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.setTrafficTransInterface(fd,bindInterface);
+    }
+
+    public static boolean setTrafficTransInterface(Socket sock, String bindInterface) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.setTrafficTransInterface(sock,bindInterface);
+    }
+
+    public static boolean registerCallback(IAIDLMiuiNetworkCallback cb) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.registerCallback(cb);
+    }
+
+    public static boolean unregisterCallback(IAIDLMiuiNetworkCallback cb) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.unregisterCallback(cb);
+    }
+
+    public static boolean activeScan(int[] channeList) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.activeScan(channeList);
+    }
+
+    public static boolean registerWifiLinkCallback(IAIDLMiuiWlanQoECallback cb) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.registerWifiLinkCallback(cb);
+    }
+
+    public static boolean abortScan() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.abortScan();
+    }
+
+    public static boolean unregisterWifiLinkCallback(IAIDLMiuiWlanQoECallback cb) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.unregisterWifiLinkCallback(cb);
+    }
+
+    public static boolean suspendBackgroundScan() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.suspendBackgroundScan();
+    }
+
+    public static boolean resumeBackgroundScan() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.resumeBackgroundScan();
+    }
+
+    public static boolean suspendWifiPowerSave() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.suspendWifiPowerSave();
+    }
+
+    public static boolean resumeWifiPowerSave() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.resumeWifiPowerSave();
+    }
+
+    public static Map<String, String> getQoEByAvailableIfaceName(String ifaceName) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return new HashMap<>();
+        }
+        return sNetworkBoostManager.getQoEByAvailableIfaceName(ifaceName);
+    }
+
+    public static Map<String, String> getAvailableIfaces() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return new HashMap<>();
+        }
+        return sNetworkBoostManager.getAvailableIfaces();
+    }
+
+    public static Map<String, String> requestAppTrafficStatistics(int type, long startTime, long endTime) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return new HashMap<>();
+        }
+        return sNetworkBoostManager.requestAppTrafficStatistics(type,startTime,endTime);
+    }
+
+    public static NetLinkLayerQoE getQoEByAvailableIfaceNameV1(String ifaceName) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return new NetLinkLayerQoE();
+        }
+        return sNetworkBoostManager.getQoEByAvailableIfaceNameV1(ifaceName);
+    }
+
+    public static boolean registerNetLinkCallback(IAIDLMiuiNetQoECallback cb, int interval) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.registerNetLinkCallback(cb,interval);
+    }
+
+    public static boolean unregisterNetLinkCallback(IAIDLMiuiNetQoECallback cb) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.unregisterNetLinkCallback(cb);
+    }
+
+    public static boolean isSupportDualCelluarData() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.isSupportDualCelluarData();
+    }
+
+    public static boolean isCelluarDSDAState() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.isCelluarDSDAState();
+    }
+
+    public static boolean setDualCelluarDataEnable(boolean enable) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.setDualCelluarDataEnable(enable);
+    }
+    
 }

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.bun.miitmdid.core.JLibrary;
 import com.mi.mibridge.MiBridge;
 import com.mi.mibridge.ThermalEventCallBack;
+import com.xiaomi.NetworkBoost.ServiceCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -312,6 +313,19 @@ public class ApiActivity extends AppCompatActivity {
             startActivity(intent);
         }));
 
+        miBridgeModels.add(new MiBridgeModel("Network_init", () -> {
+            MiBridge.initNetwork(ApiActivity.this, new ServiceCallback() {
+                @Override
+                public void onServiceConnected() {
+
+                }
+
+                @Override
+                public void onServiceDisconnected() {
+
+                }
+            });
+        }));
     }
 
 
