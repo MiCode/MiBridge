@@ -87,7 +87,7 @@ Open the Android Studio project-level "build.gradle" file. Configure the Maven r
 
 ```
 allprojects {
- repositories { 
+ repositories {
         ...
   //增加小米应用加速器的Maven仓库地址
   maven {
@@ -108,8 +108,8 @@ Open the app-level "build.gradle" file.
 ```
 dependencies {
     ...
-    //1.0.5 is the version number of mibridge. Subsequent upgrades should also modify the corresponding version number.
-    implementation "com.xiaomi.mibridge:mibridge:1.0.5"
+    //1.0.6 is the version number of mibridge. Subsequent upgrades should also modify the corresponding version number.
+    implementation "com.xiaomi.mibridge:mibridge:1.0.6"
     ...
 }
 ```

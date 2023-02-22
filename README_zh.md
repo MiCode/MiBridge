@@ -84,7 +84,7 @@ com.mi.testmibridge | 张三 |
 
 ```
 allprojects {
- repositories { 
+ repositories {
         ...
   //增加小米应用加速器的Maven仓库地址
   maven {
@@ -105,8 +105,8 @@ allprojects {
 ```
 dependencies {
     ...
-    //1.0.5是mibridge的版本号，后续升级也要修改对应版本号。
-    implementation "com.xiaomi.mibridge:mibridge:1.0.5"
+    //1.0.6是mibridge的版本号，后续升级也要修改对应版本号。
+    implementation "com.xiaomi.mibridge:mibridge:1.0.6"
     ...
 }
 ```
