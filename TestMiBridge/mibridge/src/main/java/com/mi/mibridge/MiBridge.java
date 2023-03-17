@@ -10,6 +10,7 @@ import com.xiaomi.NetworkBoost.IAIDLMiuiWlanQoECallback;
 import com.xiaomi.NetworkBoost.NetLinkLayerQoE;
 import com.xiaomi.NetworkBoost.NetworkBoostManager;
 import com.xiaomi.NetworkBoost.ServiceCallback;
+import com.xiaomi.NetworkBoost.Version;
 
 import java.io.FileDescriptor;
 import java.lang.reflect.Constructor;
@@ -727,4 +728,13 @@ public class MiBridge {
         }
         return sNetworkBoostManager.disableWifiSelectionOpt(cb);
     }
+
+    public static int getSDKVersion() {
+        return NetworkBoostManager.getSDKVersion();
+    }
+
+    public static int getServiceVersion() {
+        return NetworkBoostManager.getServiceVersion();
+    }
+
 }

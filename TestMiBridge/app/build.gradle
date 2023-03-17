@@ -55,5 +55,5 @@ dependencies {
     implementation files('libs/miit_mdid_1.0.10.aar')
     implementation "com.google.android.exoplayer:exoplayer:2.18.1"
     implementation 'com.google.android.material:material:1.4.0'
-    implementation "com.xiaomi.mibridge:mibridge:1.0.7"
+    implementation "com.xiaomi.mibridge:mibridge:1.0.8"
 }
