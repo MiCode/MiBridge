@@ -237,7 +237,7 @@ public class ApiActivity extends AppCompatActivity {
                 int ddrLevel = MiBridgeUtil.parseString(mDdrLevelEditText.getText().toString());
                 int ddrTimeout = MiBridgeUtil.parseString(mDdrTimeoutEditText.getText().toString());
                 int ret = MiBridge.requestDdrHighFreq(mBridgeUid, ddrLevel, ddrTimeout);
-                showResult(ret, "requestGpuHighFreq ");
+                showResult(ret, "requestDdrHighFreq ");
             }
         }));
 

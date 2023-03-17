@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.xiaomi.NetworkBoost.IAIDLMiuiNetQoECallback;
+import com.xiaomi.NetworkBoost.IAIDLMiuiNetSelectCallback;
 import com.xiaomi.NetworkBoost.IAIDLMiuiNetworkCallback;
 import com.xiaomi.NetworkBoost.IAIDLMiuiWlanQoECallback;
 import com.xiaomi.NetworkBoost.NetLinkLayerQoE;
@@ -694,5 +695,36 @@ public class MiBridge {
         }
         return sNetworkBoostManager.setDualCelluarDataEnable(enable);
     }
-    
+
+    public static boolean enableWifiSelectionOpt(IAIDLMiuiNetSelectCallback cb, int type) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.enableWifiSelectionOpt(cb, type);
+    }
+
+    public static void triggerWifiSelection() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return;
+        }
+        sNetworkBoostManager.triggerWifiSelection();
+    }
+
+    public static void reportBssidScore(Map<String, String> bssidScores) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return;
+        }
+        sNetworkBoostManager.reportBssidScore(bssidScores);
+    }
+
+    public static boolean disableWifiSelectionOpt(IAIDLMiuiNetSelectCallback cb) {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.disableWifiSelectionOpt(cb);
+    }
 }
