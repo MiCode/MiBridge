@@ -737,4 +737,12 @@ public class MiBridge {
         return NetworkBoostManager.getServiceVersion();
     }
 
+    public static boolean isSupportMediaPlayerPolicy() {
+        if (null == sNetworkBoostManager) {
+            Log.e(TAG, "networkBoost not initialized, please call initNetwork method first");
+            return false;
+        }
+        return sNetworkBoostManager.isSupportMediaPlayerPolicy();
+    }
+
 }
