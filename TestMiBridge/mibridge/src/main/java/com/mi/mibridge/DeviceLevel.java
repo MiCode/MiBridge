@@ -23,6 +23,8 @@ public class DeviceLevel {
     private static Method mGetDeviceLevel = null;
     private static Method mGetDeviceLevelForWhole = null;
     private static Method mIsSupportPrune = null;
+    private static Method mGetMiuiLiteVersion = null;
+    private static Method mGetMiuiMiddleVersion = null;
     private static Class perfClass;
     private static PathClassLoader perfClassLoader;
     private static Application application;
@@ -42,6 +44,10 @@ public class DeviceLevel {
     public static int UNKNOWN;
 
     public static boolean IS_MIUI_LITE_VERSION;
+
+    public static boolean IS_MIUI_MIDDLE_VERSION;
+
+    public static boolean IS_MIUI_GO_VERSION;
 
     public static int TOTAL_RAM;
 
@@ -75,13 +81,32 @@ public class DeviceLevel {
             HIGH = getStaticObjectField(perfClass, "HIGH_DEVICE");
             UNKNOWN = getStaticObjectField(perfClass, "DEVICE_LEVEL_UNKNOWN");
 
-            // 判断是否为MiuiLite版本
+            // 判断是否为MiuiLite
             IS_MIUI_LITE_VERSION = getStaticObjectField(perfClass, "IS_MIUI_LITE_VERSION");
 
-            // 返回该机型的Ram值，单位：G
+            // 判断是否为MiuiGo版本
+            IS_MIUI_GO_VERSION = getStaticObjectField(perfClass, "IS_MIUI_GO_VERSION");
+
+            // 返回该设备的Ram值，单位：G
             TOTAL_RAM = getStaticObjectField(perfClass, "TOTAL_RAM");
+
+            // 判断MiuiLite版本
+            mGetMiuiLiteVersion = perfClass.getDeclaredMethod("getMiuiLiteVersion");
+
         } catch (Exception e) {
             Log.e(TAG, "MiDeviceLevelBridge(): Load Class Exception:" + e);
+        }
+
+        try {
+            // 判断是否为MiuiMiddle
+            IS_MIUI_MIDDLE_VERSION = getStaticObjectField(perfClass, "IS_MIUI_MIDDLE_VERSION");
+
+            // MiuiMiddle版本号
+            mGetMiuiMiddleVersion = perfClass.getDeclaredMethod("getMiuiMiddleVersion");
+
+        } catch (Exception e) {
+            Log.e(TAG, "DeviceLevelUtils(): newInstance Exception:" + e);
+            e.printStackTrace();
         }
 
         if (applicationContext == null) {
@@ -149,6 +174,27 @@ public class DeviceLevel {
         return ret;
     }
 
+    public static int getMiuiLiteVersion() {
+        int ret = -1;
+        try {
+            Object retVal = mGetMiuiLiteVersion.invoke(mPerf);
+            ret = (int) retVal;
+        } catch (Exception e) {
+            Log.e(TAG, "getMiuiLiteVersion failed , e:" + e.toString());
+        }
+        return ret;
+    }
+
+    public static int getMiuiMiddleVersion() {
+        int ret = -1;
+        try {
+            Object retVal = mGetMiuiMiddleVersion.invoke(mPerf);
+            ret = (int) retVal;
+        } catch (Exception e) {
+            Log.e(TAG, "getMiuiMiddleVersion failed , e:" + e.toString());
+        }
+        return ret;
+    }
     public static boolean isSupportPrune() {
         boolean isSupport = false;
         try {
