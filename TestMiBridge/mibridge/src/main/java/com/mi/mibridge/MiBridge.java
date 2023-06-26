@@ -1,6 +1,7 @@
 package com.mi.mibridge;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import com.xiaomi.NetworkBoost.IAIDLMiuiNetQoECallback;
@@ -29,6 +30,7 @@ public class MiBridge {
 
     private static final String TAG = "MiBridge";
     private static final String PERFORMANCE_JAR = "/system/framework/MiuiBooster.jar";
+    private static final String PERFORMANCE_U_JAR = "/system_ext/framework/MiuiBooster.jar";
     private static final String PERFORMANCE_CLASS = "com.miui.performance.MiuiBooster";
     private static final String ITHERMALEVENTCALLBACK_CLASS = "com.miui.performance.IThermalEventCallBack";
 
@@ -61,7 +63,8 @@ public class MiBridge {
 
     static {
         try {
-            perfClassLoader = new PathClassLoader(PERFORMANCE_JAR,
+            String jarPath = Build.VERSION.SDK_INT <= 33 ? PERFORMANCE_JAR : PERFORMANCE_U_JAR;
+            perfClassLoader = new PathClassLoader(jarPath,
                     ClassLoader.getSystemClassLoader());
             perfClass = perfClassLoader.loadClass(PERFORMANCE_CLASS);
             mConstructor = perfClass.getConstructor();
