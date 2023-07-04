@@ -31,6 +31,8 @@ public class MiBridge {
     private static final String TAG = "MiBridge";
     private static final String PERFORMANCE_JAR = "/system/framework/MiuiBooster.jar";
     private static final String PERFORMANCE_U_JAR = "/system_ext/framework/MiuiBooster.jar";
+    public static String JAR_PATH = Build.VERSION.SDK_INT <= 33 ? PERFORMANCE_JAR : PERFORMANCE_U_JAR;
+
     private static final String PERFORMANCE_CLASS = "com.miui.performance.MiuiBooster";
     private static final String ITHERMALEVENTCALLBACK_CLASS = "com.miui.performance.IThermalEventCallBack";
 
@@ -63,8 +65,7 @@ public class MiBridge {
 
     static {
         try {
-            String jarPath = Build.VERSION.SDK_INT <= 33 ? PERFORMANCE_JAR : PERFORMANCE_U_JAR;
-            perfClassLoader = new PathClassLoader(jarPath,
+            perfClassLoader = new PathClassLoader(JAR_PATH,
                     ClassLoader.getSystemClassLoader());
             perfClass = perfClassLoader.loadClass(PERFORMANCE_CLASS);
             mConstructor = perfClass.getConstructor();

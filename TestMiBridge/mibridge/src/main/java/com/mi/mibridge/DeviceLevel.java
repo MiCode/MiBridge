@@ -17,7 +17,7 @@ public class DeviceLevel {
 
     private static final String TAG = "DeviceLevel";
 
-    private static final String PERFORMANCE_JAR = "/system/framework/MiuiBooster.jar";
+    private static final String PERFORMANCE_JAR = MiBridge.JAR_PATH;
     private static final String PERFORMANCE_CLASS = "com.miui.performance.DeviceLevelUtils";
     private static Method mInitDeviceLevel = null;
     private static Method mGetDeviceLevel = null;
