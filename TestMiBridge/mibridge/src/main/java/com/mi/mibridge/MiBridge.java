@@ -53,6 +53,8 @@ public class MiBridge {
     private static Method mRegisterThermalEventCallbackFunc = null;
     private static Method mUnRegisterThermalEventCallbackFunc = null;
     private static Method mSetDynamicRefreshRateSceneFunc = null;
+    private static Method mRequestThreadLevelPriorityFunc = null;
+    private static Method mCancelThreadLevelPriorityFunc = null;
 
     private static NetworkBoostManager sNetworkBoostManager;
 
@@ -200,6 +202,21 @@ public class MiBridge {
                 Log.e(TAG, "UnRegisterThermalEventCallback no exit");
             }
 
+            try {
+                argClasses = new Class[]{int.class, int[].class, int.class, int.class};
+                mRequestThreadLevelPriorityFunc = perfClass.getDeclaredMethod("requestThreadLevelPro", argClasses);
+            } catch (Exception e) {
+                Log.e(TAG, "requestThreadLevelPro no exit");
+            }
+
+            try {
+                argClasses = new Class[]{int.class, int.class};
+                mCancelThreadLevelPriorityFunc = perfClass.getDeclaredMethod("cancelThreadLevelPro", argClasses);
+            } catch (Exception e) {
+                Log.e(TAG, "requestThreadLevelPro no exit");
+            }
+
+
         } catch (Exception e) {
             Log.e(TAG, "MiBridge() : Load Class Exception: " + e);
         }
@@ -261,6 +278,12 @@ public class MiBridge {
         return ret;
     }
 
+    /**
+     * change thread priority
+     *
+     * @deprecated Use {@link com.mi.mibridge.MiBridge#requestThreadLevelPriority(int, int[], int, int)} ()}
+     */
+    @Deprecated
     public static int requestThreadPriority(int uid, int req_tid, int timeoutms) {
         int ret = -1;
         try {
@@ -271,7 +294,12 @@ public class MiBridge {
         }
         return ret;
     }
-
+    /**
+     * reset thread priority
+     *
+     * @deprecated Use {@link com.mi.mibridge.MiBridge#cancelThreadLevelPriority(int, int)}
+     */
+    @Deprecated
     public static int cancelThreadPriority(int uid, int req_tid) {
         int ret = -1;
         try {
@@ -416,6 +444,28 @@ public class MiBridge {
             ret = (int) retVal;
         } catch (Exception e) {
             Log.e(TAG, "set dynamic refresh rate failed , e:" + e.toString());
+        }
+        return ret;
+    }
+
+    public static int requestThreadLevelPriority(int uid, int[] tids, int timeoutms, int level) {
+        int ret = -1;
+        try {
+            Object retVal = mRequestThreadLevelPriorityFunc.invoke(mPerf, uid, tids, timeoutms, level);
+            ret = (int) retVal;
+        } catch (Exception e) {
+            Log.e(TAG, "set request thread level failed , e:" + e.toString());
+        }
+        return ret;
+    }
+
+    public static int cancelThreadLevelPriority(int uid, int requested_id) {
+        int ret = -1;
+        try {
+            Object retVal = mCancelThreadLevelPriorityFunc.invoke(mPerf, uid, requested_id);
+            ret = (int) retVal;
+        } catch (Exception e) {
+            Log.e(TAG, "cancel request thread level failed, e:" + e.toString());
         }
         return ret;
     }

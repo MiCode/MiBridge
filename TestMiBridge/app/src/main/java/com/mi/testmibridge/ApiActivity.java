@@ -80,6 +80,7 @@ public class ApiActivity extends AppCompatActivity {
     ThermalEventCallBack mThermalEventCallBack = null;
     Context mContext;
 
+    private int requestId;
 
     private MiitHelper.AppIdsUpdater appIdsUpdater = new MiitHelper.AppIdsUpdater() {
         @Override
@@ -214,19 +215,19 @@ public class ApiActivity extends AppCompatActivity {
             }
         }));
 
-        miBridgeModels.add(new MiBridgeModel("requestThreadPriority", new Runnable() {
+        miBridgeModels.add(new MiBridgeModel("requestThreadLevelPriority", new Runnable() {
             @Override
             public void run() {
-                int timeout = MiBridgeUtil.parseString(mThreadPriorityEditText.getText().toString());
-                int ret = MiBridge.requestThreadPriority(mBridgeUid, mBridgeTid, timeout);
-                showResult(ret, "requestThreadPriority ");
+                requestId = MiBridge.requestThreadLevelPriority(mBridgeUid, new int[]{mBridgeTid}, 10000,2);
+                Toast.makeText(ApiActivity.this, "请执行：adb shell cat proc/"+mBridgeTid +"/sched |grep prio"
+                        , Toast.LENGTH_SHORT).show();
             }
         }));
 
         miBridgeModels.add(new MiBridgeModel("cancelThreadPriority", new Runnable() {
             @Override
             public void run() {
-                int ret = MiBridge.cancelThreadPriority(mBridgeUid, mBridgeTid);
+                int ret = MiBridge.cancelThreadLevelPriority(mBridgeUid, requestId);
                 showResult(ret, "cancelThreadPriority ");
             }
         }));
