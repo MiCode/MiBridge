@@ -109,7 +109,7 @@ Open the app-level "build.gradle" file.
 dependencies {
     ...
     //1.0.xx is the version number of mibridge. Subsequent upgrades should also modify the corresponding version number.
-    implementation "com.xiaomi.mibridge:mibridge:1.0.17"
+    implementation "com.xiaomi.mibridge:mibridge:1.0.18"
     ...
 }
 ```

@@ -106,7 +106,7 @@ allprojects {
 dependencies {
     ...
     //1.0.xx是mibridge的版本号，后续升级也要修改对应版本号。
-    implementation "com.xiaomi.mibridge:mibridge:1.0.17"
+    implementation "com.xiaomi.mibridge:mibridge:1.0.18"
     ...
 }
 ```
