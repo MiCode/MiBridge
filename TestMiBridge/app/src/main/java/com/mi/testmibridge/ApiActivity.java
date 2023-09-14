@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Window;
@@ -55,7 +58,8 @@ public class ApiActivity extends AppCompatActivity {
     private EditText mDdrTimeoutEditText;
 
     // ThreadPriority
-    private EditText mThreadPriorityEditText;
+    private EditText mThreadProLevelEditText;
+    private EditText mThreadProTimeoutEditText;
 
     // io_prefetch_path
     private EditText mIOPrefetchPathEditText;
@@ -80,7 +84,9 @@ public class ApiActivity extends AppCompatActivity {
     ThermalEventCallBack mThermalEventCallBack = null;
     Context mContext;
 
-    private int requestId;
+    private int reqId_threadLevel;
+
+    private int reqId_BindCore;
 
     private MiitHelper.AppIdsUpdater appIdsUpdater = new MiitHelper.AppIdsUpdater() {
         @Override
@@ -118,7 +124,8 @@ public class ApiActivity extends AppCompatActivity {
         mDdrLevelEditText = findViewById(R.id.ddr_level);
         mDdrTimeoutEditText = findViewById(R.id.ddr_timeout);
         mBridge_output = findViewById(R.id.bridge_output);
-        mThreadPriorityEditText = findViewById(R.id.thread_priority_edit);
+        mThreadProLevelEditText = findViewById(R.id.thread_level);
+        mThreadProTimeoutEditText = findViewById(R.id.thread_timeout);
         mIOPrefetchPathEditText = findViewById(R.id.io_prefetch_path);
         RecyclerView recyclerView = findViewById(R.id.bridge_recycle_view);
         recyclerView.setAdapter(new MiBridgeAdapter(miBridgeModels));
@@ -218,16 +225,16 @@ public class ApiActivity extends AppCompatActivity {
         miBridgeModels.add(new MiBridgeModel("requestThreadLevelPriority", new Runnable() {
             @Override
             public void run() {
-                requestId = MiBridge.requestThreadLevelPriority(mBridgeUid, new int[]{mBridgeTid}, 10000,2);
-                Toast.makeText(ApiActivity.this, "请执行：adb shell cat proc/"+mBridgeTid +"/sched |grep prio"
-                        , Toast.LENGTH_SHORT).show();
+                int threadProLevel = MiBridgeUtil.parseString(mThreadProLevelEditText.getText().toString());
+                int threadProTimeout = MiBridgeUtil.parseString(mThreadProTimeoutEditText.getText().toString());
+                reqId_threadLevel = MiBridge.requestThreadLevelPriority(mBridgeUid, new int[]{mBridgeTid}, threadProTimeout, threadProLevel);
             }
         }));
 
         miBridgeModels.add(new MiBridgeModel("cancelThreadPriority", new Runnable() {
             @Override
             public void run() {
-                int ret = MiBridge.cancelThreadLevelPriority(mBridgeUid, requestId);
+                int ret = MiBridge.cancelThreadLevelPriority(mBridgeUid, reqId_threadLevel);
                 showResult(ret, "cancelThreadPriority ");
             }
         }));
@@ -253,8 +260,14 @@ public class ApiActivity extends AppCompatActivity {
         miBridgeModels.add(new MiBridgeModel("requestBindCore", new Runnable() {
             @Override
             public void run() {
-                int ret = MiBridge.requestBindCore(mBridgeUid, mBridgeTid,1000);
-                showResult(ret, "requestThreadPriority ");
+                reqId_BindCore = MiBridge.requestBindCore(mBridgeUid, mBridgeTid,5000);
+            }
+        }));
+
+        miBridgeModels.add(new MiBridgeModel("cancelBindCore", new Runnable() {
+            @Override
+            public void run() {
+                MiBridge.cancelBindCore(mBridgeUid, reqId_BindCore);
             }
         }));
 

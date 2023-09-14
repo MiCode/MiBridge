@@ -122,7 +122,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
-        android:text="ThreadPriority"
+        android:text="Thread level"
         app:layout_constraintStart_toStartOf="@+id/bridge_input_gpu_timeout"
         app:layout_constraintTop_toBottomOf="@+id/bridge_input_gpu_timeout" />
 
@@ -184,16 +184,17 @@
         app:layout_constraintTop_toBottomOf="@+id/gpu_level" />
 
     <EditText
-        android:id="@+id/thread_priority_edit"
+        android:id="@+id/thread_level"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="-20dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/bg_edittext_selector"
         android:ems="5"
         android:hint="ThreadPriority"
         android:inputType="number"
-        android:text="10000"
+        android:text="2"
+        app:layout_constraintBottom_toBottomOf="@+id/thread_priority"
+        app:layout_constraintEnd_toEndOf="@+id/ddr_level"
         app:layout_constraintStart_toEndOf="@+id/thread_priority"
         app:layout_constraintTop_toTopOf="@+id/thread_priority" />
 
@@ -201,14 +202,15 @@
         android:id="@+id/io_prefetch_path"
         android:layout_width="0dp"
         android:layout_height="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/bg_edittext_selector"
         android:hint="io prefetch path"
+        app:layout_constraintBottom_toBottomOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/thread_priority_edit"
-        app:layout_constraintTop_toBottomOf="@+id/thread_priority_edit" />
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="@+id/textView9" />
 
     <EditText
         android:id="@+id/cpu_timeout"
@@ -249,6 +251,21 @@
         app:layout_constraintStart_toStartOf="@+id/gpu_timeout"
         app:layout_constraintTop_toTopOf="@+id/ddr_level" />
 
+    <EditText
+        android:id="@+id/thread_timeout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext_selector"
+        android:ems="5"
+        android:hint="timeout"
+        android:inputType="number"
+        android:text="1000"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/gpu_timeout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ddr_timeout"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -286,6 +303,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/thread_priority"
         app:layout_constraintTop_toBottomOf="@+id/thread_priority" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Timeout"
+        app:layout_constraintBottom_toBottomOf="@+id/thread_priority"
+        app:layout_constraintStart_toStartOf="@+id/bridge_input_ddr_timeout"
+        app:layout_constraintTop_toTopOf="@+id/thread_priority" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

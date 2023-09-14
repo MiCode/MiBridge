@@ -152,7 +152,7 @@ public class MiBridge {
 
             try {
                 //bindcore
-                argClasses = new Class[]{int.class, int.class, int.class};
+                argClasses = new Class[]{int.class, int[].class, int.class, int.class};
                 mRequestBindCoreFunc = perfClass.getDeclaredMethod("requestBindCore", argClasses);
             } catch (Exception e) {
                 Log.e(TAG, "requestBindCore no exit");
@@ -333,10 +333,20 @@ public class MiBridge {
         return ret;
     }
 
+    /**
+     * bind core
+     *
+     * @deprecated Use {@link com.mi.mibridge.MiBridge#requestBindCore(int, int[], int, int)}
+     */
+    @Deprecated
     public static int requestBindCore(int uid, int tid, int timeoutms) {
+        return requestBindCore(uid, new int[]{tid}, 1, timeoutms);
+    }
+
+    public static int requestBindCore(int uid, int[] tids, int level, int timeoutms) {
         int ret = -1;
         try {
-            Object retVal = mRequestBindCoreFunc.invoke(mPerf, uid, tid, timeoutms);
+            Object retVal = mRequestBindCoreFunc.invoke(mPerf, uid, tids, level, timeoutms);
             ret = (int) retVal;
         } catch (Exception e) {
             Log.e(TAG, "request BindCore failed , e:" + e.toString());
@@ -344,10 +354,10 @@ public class MiBridge {
         return ret;
     }
 
-    public static int cancelBindCore(int uid, int tid) {
+    public static int cancelBindCore(int uid, int reqId) {
         int ret = -1;
         try {
-            Object retVal = mCancelBindCoreFunc.invoke(mPerf, uid, tid);
+            Object retVal = mCancelBindCoreFunc.invoke(mPerf, uid, reqId);
             ret = (int) retVal;
         } catch (Exception e) {
             Log.e(TAG, "request BindCore failed , e:" + e.toString());
